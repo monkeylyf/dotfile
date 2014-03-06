@@ -6,17 +6,10 @@
 #alias gcc='/usr/local/bin/gcc-4.2'
 # shortcuts
 alias line_count="find . -name '*.java' | xargs wc -l"
-alias acm='cd ~/ironport/interviewjam/'
 alias bastion='ssh yifenliu@ops-dev1.sco.cisco.com -o serveraliveinterval=150'
 alias anna='ssh yifenliu@10.128.29.46 -o serveraliveinterval=150'
 alias annar='ssh root@10.128.29.46 -o serveraliveinterval=150'
 alias annah='ssh hadoop@10.128.29.46 -o serveraliveinterval=150'
-alias couresa='cd ~/ironport/scala/'
-alias obd='cd ~/ironport/obd/obdweb/'
-alias weibo='cd ~/ironport/WeiboObservatory/weiboobservatory'
-alias ec2='ssh -i ~/ironport/yifenliu-ironport.pem ubuntu@ec2-54-218-71-144.us-west-2.compute.amazonaws.com'
-alias fuck='ps auxww'
-alias douban='cd ~/ironport/douban_fm'
 # Python
 #alias python='/usr/local/bin/python2.7'
 alias python26='/usr/bin/python2.6'
