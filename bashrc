@@ -1,51 +1,33 @@
+
 # .bashrc
 # yifenliu
 
-# gcc
-#export CC=/usr/local/bin/gcc-4.2
-#alias gcc='/usr/local/bin/gcc-4.2'
-# shortcuts
-alias line_count="find . -name '*.java' | xargs wc -l"
-alias bastion='ssh yifenliu@ops-dev1.sco.cisco.com -o serveraliveinterval=150'
-alias anna='ssh yifenliu@10.128.29.46 -o serveraliveinterval=150'
-alias annar='ssh root@10.128.29.46 -o serveraliveinterval=150'
-alias annah='ssh hadoop@10.128.29.46 -o serveraliveinterval=150'
-# Python
-#alias python='/usr/local/bin/python2.7'
-alias python26='/usr/bin/python2.6'
-alias python33='/usr/local/bin/python3.3'
-alias pypy='/usr/local/pypy-1.9/bin/pypy'
+# Install homebrew if not
 
-export PYTHONSTARTUP=~/.pythonrc
-# Hadoop
-export HADOOP_PREFIX='/Users/yifengliu/ironport/hadoop/hadoop-1.0.4'
-export HADOOP_CONF_DIR='/Users/yifengliu/ironport/hadoop/hadoop-1.0.4/conf'
-#export JAVA_HOME='/usr/libexec/java_home -v 1.6'
-#export JAVA_HOME='/usr'
+if test ! $(which brew); then
+    echo "Installing homebrew..."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew update
+fi
 
-# Bash shell color theme
-export CLICOLOR=1
-export LSCOLORS=exfxcxdxCxegedabagacad
 
-# Source global definitions
+## Source global definitions
 #if [ -f /etc/bashrc ]; then
 #    . /etc/bashrc
 #fi
 
-# User specific aliases and functions
 
-# Source aprc file
-if [ -f ~/.aprc ]; then
-    . ~/.aprc
-fi
+#
+# Alias
+#
 
 # echo wrapper
-function myecho {
+myecho () {
     echo $0 `date "+%Y-%m-%d %H:%M:%S"` "$@"
 }
 
 # Dir tree display
-function tree {
+tree () {
     if [ $# -eq 0 ]; then
     	curDir=`pwd`
     else
@@ -57,14 +39,13 @@ function tree {
 }
 
 # Python helper
-function pyclean {
+pyclean () {
     directory=$1
     find $directory -name "*.pyc" -exec rm -f {} \;
 }
 
-
 # Java helper
-function jrun {
+jrun () {
     if [ "$#" == 1 ]; then
     	filename=$1
     	name=`echo ${filename} | sed 's/.\{5\}$//'`
@@ -75,22 +56,19 @@ function jrun {
     fi
 }
 
-
-function jclean {
+jclean () {
     directory=$1
     find $directory -name "*.class" -exec rm -f {} \;
 }
 
-
-function unsetPaths {
+unsetPaths () {
    unset PRODROOT
    unset CONFROOT
    unset PYSRCROOT
    unset PYTHONPATH
 }
 
-
-function setPathsTo {
+setPathsTo () {
     unsetPaths
     PRODROOT=$1
     CONFROOT=${PRODROOT}/etc
@@ -103,15 +81,17 @@ function setPathsTo {
     export PRODROOT PYSRCROOT CONFROOT PYTHONPATH
 }
 
+setPaths () {
+    if test ! $DEV_ROOT; then
+        echo "Please set up DEV_ROOT env variable first."
+        return 1
+    fi
 
-function setPaths {
     setPathsTo $DEV_ROOT/$1
 }
 
-
-function setPathsPkg {
+setPathsPkg () {
     setPathsTo /usr/local/ironport/$1
 }
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
