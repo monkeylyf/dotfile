@@ -3,6 +3,22 @@ if [ -f ~/.bashrc ]; then
     source ~/.bashrc
 fi
 
+# setup git env variables so the branch name will show up in bash prompt.
+uname=`uname`
+case $uname in
+    Darwin)
+        source /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
+        #PS1="\u | \W $(__git_ps1)$ "
+        ;;
+    Linux)
+        source /etc/bash_completion.d/git
+        ;;
+    *)
+        echo "Unknown platform ${uname}. Fail to set git branch env var..."
+        ;;
+esac
+
+
 # Colors. 0; => light scene 1; => dark scene.
 BLACK="\e[1:30m"
 BLUE="\e[1;34m"
@@ -14,8 +30,9 @@ BROWN="\e[1;33m"
 
 COLOREND="\e[0m"
 
+export PS1='\u | \W\[\033[1;31m\]$(__git_ps1 " (%s)")\[ \033[0m\]\$ '
 #export PS1="$CYAN\u$COLOREND$RED |$COLOREND $BROWN\W$COLOREND$GREEN$ $COLOREND"
-export PS1="\u | \W$ "
+#export PS1="\u | \W $(__git_ps1)$ "
 export CLICOLOR=1
 #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export LSCOLORS=ExFxBxDxCxegedabagacad
