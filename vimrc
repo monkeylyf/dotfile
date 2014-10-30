@@ -25,7 +25,7 @@ set hlsearch
 " make searches case-sensitive only if they contain upper-case characters
 set ignorecase smartcase
 " highlight current line
-set cursorline
+"set cursorline
 set cmdheight=1
 set switchbuf=useopen
 set showtabline=2
@@ -81,7 +81,6 @@ set number
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Automatically remove all trailing whitespace when :w is called.
 autocmd BufWritePre * :%s/\s\+$//e
 augroup vimrcEx
   " Clear all autocmds in the group
@@ -125,8 +124,10 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 :set t_Co=256 " 256 colors
 :set background=dark
-":color grb256
-:color flattr
+":color mrkn256
+":color flatui
+:color herokudoc
+":color cake16
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
@@ -144,6 +145,8 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 " Insert a hash rocket with <c-l>
 imap <c-l> <space>=><space>
+" Insert a left rocket with <c-k>
+imap <c-k> <space><-<space>
 " Can't be bothered to understand ESC vs <c-c> in insert mode
 imap <c-c> <esc>
 nnoremap <leader><leader> <c-^>
