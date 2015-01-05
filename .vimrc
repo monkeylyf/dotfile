@@ -68,8 +68,13 @@ let g:sh_noisk=1
 set modeline
 set modelines=3
 " Turn folding off for real, hopefully
-set foldmethod=manual
-set nofoldenable
+"set foldmethod=manual
+"set nofoldenable
+" Turn on folding
+set foldmethod=syntax
+set foldlevel=99
+nnoremap <space> za
+vnoremap <space> zf
 " Insert only one space when joining lines that contain sentence-terminating
 " punctuation like `.`.
 set nojoinspaces
@@ -318,7 +323,7 @@ nnoremap <leader>. :call OpenTestAlternate()<cr>
 " RUNNING TESTS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! MapCR()
-  nnoremap <cr> :call RunTestFile()<cr>
+  nnoremap <cr> :noh<cr>
 endfunction
 call MapCR()
 nnoremap <leader>T :call RunNearestTest()<cr>
