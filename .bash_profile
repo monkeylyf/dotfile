@@ -37,6 +37,8 @@ export CLICOLOR=1
 #export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
+# Ignore history by adding heading space.
+export HISTIGNORE=' *'
 
 
 #
