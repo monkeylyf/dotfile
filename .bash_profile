@@ -30,7 +30,7 @@ BROWN="\e[1;33m"
 
 COLOREND="\e[0m"
 
-export PS1='\u | \W\[\033[1;31m\]$(__git_ps1 " (%s)")\[ \033[0m\]\$ '
+export PS1='\u | \W\[\033[1;31m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
 #export PS1="$CYAN\u$COLOREND$RED |$COLOREND $BROWN\W$COLOREND$GREEN$ $COLOREND"
 #export PS1="\u | \W $(__git_ps1)$ "
 export CLICOLOR=1
