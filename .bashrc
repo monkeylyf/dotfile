@@ -61,37 +61,4 @@ jclean () {
     find $directory -name "*.class" -exec rm -f {} \;
 }
 
-unsetPaths () {
-   unset PRODROOT
-   unset CONFROOT
-   unset PYSRCROOT
-   unset PYTHONPATH
-}
-
-setPathsTo () {
-    unsetPaths
-    PRODROOT=$1
-    CONFROOT=${PRODROOT}/etc
-    PYSRCROOT=${PRODROOT}/src/python
-    PYTHONPATH=${PYTHONPATH}:${PYSRCROOT}
-    echo PRODROOT=${PRODROOT}
-    echo CONFROOT=${CONFROOT}
-    echo PYSRCROOT=${PYSRCROOT}
-    echo PYTHONPATH=${PYTHONPATH}
-    export PRODROOT PYSRCROOT CONFROOT PYTHONPATH
-}
-
-setPaths () {
-    if test ! $DEV_ROOT; then
-        echo "Please set up DEV_ROOT env variable first."
-        return 1
-    fi
-
-    setPathsTo $DEV_ROOT/$1
-}
-
-setPathsPkg () {
-    setPathsTo /usr/local/ironport/$1
-}
-
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
