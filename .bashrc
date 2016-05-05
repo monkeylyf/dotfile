@@ -1,4 +1,3 @@
-
 # .bashrc
 # yifenliu
 
@@ -16,10 +15,12 @@ fi
 #    . /etc/bashrc
 #fi
 
+# Export vim runtime path
+export VIMRUNTIME=/usr/local/Cellar/vim/7.4.1795/share/vim/vim74
+alias vim="/usr/local/Cellar/vim/7.4.1795/bin/vim"
 
-#
-# Alias
-#
+# Rails rvm setup.
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # echo wrapper
 myecho () {
@@ -60,5 +61,3 @@ jclean () {
     directory=$1
     find $directory -name "*.class" -exec rm -f {} \;
 }
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
