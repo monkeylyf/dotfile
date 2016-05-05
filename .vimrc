@@ -333,4 +333,40 @@ noremap <leader>cc :call CreatePythonClass()<cr>
 " CreateClassMethod
 """""""""""""""""""
 function! CreateClassMethod()
+    let method_name = input('Method name:')
+    let args = split(input('Arguments: '), ',')
+    let lines = []
+    let indentation = '    '
+
+    " gen method signature.
+    let declaration = indentation . 'def ' . method_name . '(self, '
+    for arg in args
+        let declaration .= arg . ', '
+    endfor
+
+    let declaration = declaration[:-3] . '):'
+    call add(lines, declaration)
+    call PutByLines(lines)
+
+    call GenDocString(args, 8)
+    let lines = [indentation . indentation . 'return']
+    call PutByLines(lines)
 endfunction
+
+noremap <leader>cm :call CreateClassMethod()<cr>
+
+""""""""""""""""""""
+" CreateMainEntrance
+""""""""""""""""""""
+function! CreateMainEntrance()
+    let lines = []
+    let indentation = '    '
+    call add(lines, 'def main():')
+    call add(lines, indentation . 'pass')
+    call add(lines, '')
+    call add(lines, 'if __name__ == "__main__":')
+    call add(lines, indentation . 'main()')
+    call PutByLines(lines)
+endfunction
+
+noremap <leader>cv :call CreateMainEntrance()<cr>
