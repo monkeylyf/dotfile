@@ -19,6 +19,29 @@ Plugin 'VundleVim/Vundle.vim'
 " Plugins
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'wincent/command-t'
+Plugin 'taglist.vim'
+Plugin 'python.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+let g:airline_theme='luna'
+let g:airline_powerline_fonts = 1
+function! AirlineInit()
+    let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
+endfunction
+autocmd VimEnter * call AirlineInit()
+Plugin 'scrooloose/nerdtree'
+" Fireup nerdtree when vim with no args
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+Plugin 'scrooloose/syntastic'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -93,7 +116,7 @@ set number
 augroup vimrcEx
   " remove trailing whitespaces triggered by pre buffer write event
   autocmd BufWritePre * :%s/\s\+$//e
-  :autocmd FileType python nnoremap <buffer> <leader>c I#<esc>
+  autocmd FileType python nnoremap <buffer> <leader>c I#<esc>
   " recover last cursor position unless it's invalid or in an event handler
   autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -109,7 +132,8 @@ augroup END
 " Status
 """"""""
 " set status line
-set statusline=%<%F%h%m%r%h%w%y\ %{strftime(\"%c\",getftime(expand(\"%:p\")))}%=\ %l\/%L\,%c%V\ %P
+" Commented out because of plugin 'vim-airline'
+"set statusline=%<%F%h%m%r%h%w%y\ %{strftime(\"%c\",getftime(expand(\"%:p\")))}%=\ %l\/%L\,%c%V\ %P
 set laststatus=2
 
 """"""""""""
@@ -124,6 +148,8 @@ syntax enable
 let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
+"colorscheme base16-ocean
+"let base16colorspace=256
 
 """"""""""""""""""
 " Mapping & Leader
@@ -133,11 +159,19 @@ let mapleader=","
 :nmap <space> viw
 :imap <c-d> <esc>ddi
 
+" Plugin taglist.vim. Toggle Tag list.
+nnoremap <leader><leader>t :TlistToggle<CR>
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+" Disable arrow keys in normal mode.
+let noarrowkeys="Arrow keys not allowed in normal mode motherfucker!"
+noremap <Up> :echo noarrowkeys<CR>
+noremap <Down> :echo noarrowkeys<CR>
+noremap <Left> :echo noarrowkeys<CR>
+noremap <Right> :echo noarrowkeys<CR>
 
 " Insert a hash rocket with <c-l>
 inoremap <c-l> <space>=><space>
