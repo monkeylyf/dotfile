@@ -1,14 +1,4 @@
 # .bashrc
-# yifenliu
-
-# Install homebrew if not
-
-if test ! $(which brew); then
-    echo "Installing homebrew..."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew update
-fi
-
 
 ## Source global definitions
 #if [ -f /etc/bashrc ]; then
@@ -16,8 +6,9 @@ fi
 #fi
 
 # Export vim runtime path
-export VIMRUNTIME=/usr/local/Cellar/vim/7.4.1795/share/vim/vim74
-alias vim="/usr/local/Cellar/vim/7.4.1795/bin/vim"
+HOMEBREW_VIM_DIR="/usr/local/Cellar/vim/8.0.0066"
+export VIMRUNTIME=$HOMEBREW_VIM_DIR/share/vim/vim80
+alias vim="$HOMEBREW_VIM_DIR/bin/vim"
 
 # Rails rvm setup.
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

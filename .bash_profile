@@ -50,6 +50,7 @@ alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\
 alias rm='my_rm_wrapper'
 # git formaated log with colors.
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gs="git status"
 
 # Backing out of the current directory
 alias cd..='cd ..'
@@ -67,9 +68,6 @@ alias sc="screen -S"
 alias sl="screen -ls"
 alias sr="screen -r"
 
-# vim. Overriiding default vim 7.3 to make command t work.
-alias vim="/usr/local/Cellar/vim/7.4.430_1/bin/vim"
-#
 # Functions
 #
 my_rm_wrapper() {
