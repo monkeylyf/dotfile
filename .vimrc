@@ -1,5 +1,4 @@
-" This is Yifeng's .vimrc file
-
+" This is Yifeng's .vimrc file, expanded on Gary Bernhardt's .vimrc file
 
 """""""""""""""""""""""
 " Bundle plugin session.
@@ -33,15 +32,6 @@ Plugin 'scrooloose/nerdtree'
 " Fireup nerdtree when vim with no args
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-Plugin 'scrooloose/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -126,6 +116,11 @@ augroup vimrcEx
   " language indentation & softtabstops & expandtab
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,java,scala set ai sw=2 sts=2 et
   autocmd FileType python set ai sw=4 sts=4 et
+
+  autocmd! BufRead,BufNewFile *.sass setfiletype sass
+
+  autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
+  autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
 augroup END
 
 """"""""
@@ -156,7 +151,11 @@ colorscheme solarized
 """"""""""""""""""
 let mapleader=","
 
-:nmap <space> viw
+" Search word under cursor.
+:nmap <space> *
+" Toggle search highlight.
+:nmap <leader><space> :set hls!<cr>
+" Delete current line in insert mode.
 :imap <c-d> <esc>ddi
 
 " Plugin taglist.vim. Toggle Tag list.
@@ -167,7 +166,7 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 " Disable arrow keys in normal mode.
-let noarrowkeys="Arrow keys not allowed in normal mode motherfucker!"
+let noarrowkeys="Arrow keys not allowed in normal mode madafacar!"
 noremap <Up> :echo noarrowkeys<CR>
 noremap <Down> :echo noarrowkeys<CR>
 noremap <Left> :echo noarrowkeys<CR>
@@ -177,8 +176,6 @@ noremap <Right> :echo noarrowkeys<CR>
 inoremap <c-l> <space>=><space>
 " Insert a left rocket with <c-k>
 inoremap <c-k> <space><-<space>
-" Can't be bothered to understand ESC vs <c-c> in insert mode
-" inoremap <c-c> <esc>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
@@ -246,161 +243,3 @@ function! RemoveFancyCharacters()
     :exe ":%s/".join(keys(typo), '\|').'/\=typo[submatch(0)]/ge'
 endfunction
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
-
-"""""""""""""""""""""""""""""""""""""""
-" Python boilerlate generator
-" 1. to generater function signature
-" 2. to generator class and init method
-" 3.
-"""""""""""""""""""""""""""""""""""""""
-function! PutByLines(lines)
-    for line in a:lines
-        put =line
-    endfor
-endfunction
-
-function! GenDocString(args, indentation)
-    " cancate indentation prefix.
-    let indentation = a:indentation
-    let prefix = ''
-    while indentation > 0
-        let indentation -= 1
-        let prefix .= ' '
-    endwhile
-    echom strlen(prefix)
-
-    let doc_string_line = []
-    let docstring = prefix . '"""docstring'
-    if len(a:args) > 0
-        call add(doc_string_line, docstring)
-        call add(doc_string_line, '')
-        for arg in a:args
-            call add(doc_string_line, prefix . ':param ' . arg . ':')
-        endfor
-        call add(doc_string_line, prefix . '"""')
-    else
-        " no args, keep docstring as one line.
-        let docstring .= '"""'
-        call add(doc_string_line, docstring)
-    endif
-
-    call PutByLines(doc_string_line)
-endfunction
-
-"""""""""""""""""""""""
-" CreatePythonFunction
-"""""""""""""""""""""""
-function! CreatePythonFunction()
-    let function_name = input('Function name: ')
-    let args = split(input('Arguments: '), ',')
-    let lines = []
-    let indentation = '    '
-
-    " gen function declaration.
-    let declaration = 'def ' . function_name . '('
-    for arg in args
-        let declaration .= arg . ', '
-    endfor
-    if len(args) > 0
-        let declaration = declaration[:-3]
-    endif
-    let declaration .= '):'
-    call add(lines, declaration)
-    call PutByLines(lines)
-
-    call GenDocString(args, 4)
-
-    " gen function body
-    let lines = [indentation . 'return']
-    call PutByLines(lines)
-
-endfunction
-
-noremap <leader>cf :call CreatePythonFunction()<cr>
-
-"""""""""""""""""""
-" CreatePythonClass
-""""""""""""""""""
-function! CreatePythonClass()
-    let class_name = input('Class name: ')
-    let args = split(input('Arguments: '), ',')
-    let lines = []
-    let indentation = '    '
-
-    " gen class declaration and class doc string.
-    let declaration = 'class ' . class_name . '(object):'
-    call add(lines, declaration)
-    call add(lines, '')
-    let docstring = indentation . '"""Class docstring"""'
-    call add(lines, docstring)
-    call add(lines, '')
-
-    " gen initialize method.
-    let init_func = indentation . 'def __init__(self, '
-    for arg in args
-        let init_func .= arg . ', '
-    endfor
-
-    let init_func = init_func[:-3]
-    let init_func .= '):'
-    call add(lines, init_func)
-    call PutByLines(lines)
-
-    call GenDocString(args, 8)
-
-    " gen attribute assignment.
-    let lines = []
-    let indentation .= indentation
-    if len(args) > 0
-        for arg in args
-            call add(lines, indentation . 'self.' . arg . ' = ' . arg)
-        endfor
-    else
-        call add(lines, indentation . 'pass')
-    endif
-    call PutByLines(lines)
-endfunction
-
-noremap <leader>cc :call CreatePythonClass()<cr>
-
-"""""""""""""""""""
-" CreateClassMethod
-"""""""""""""""""""
-function! CreateClassMethod()
-    let method_name = input('Method name:')
-    let args = split(input('Arguments: '), ',')
-    let lines = []
-    let indentation = '    '
-
-    " gen method signature.
-    let declaration = indentation . 'def ' . method_name . '(self, '
-    for arg in args
-        let declaration .= arg . ', '
-    endfor
-
-    let declaration = declaration[:-3] . '):'
-    call add(lines, declaration)
-    call PutByLines(lines)
-
-    call GenDocString(args, 8)
-    let lines = [indentation . indentation . 'return']
-    call PutByLines(lines)
-endfunction
-
-noremap <leader>cm :call CreateClassMethod()<cr>
-
-""""""""""""""""""""
-" CreateMainEntrance
-""""""""""""""""""""
-function! CreateMainEntrance()
-    let lines = []
-    let indentation = '    '
-    call add(lines, 'def main():')
-    call add(lines, indentation . 'pass')
-    call add(lines, '')
-    call add(lines, 'if __name__ == "__main__":')
-    call add(lines, indentation . 'main()')
-    call PutByLines(lines)
-endfunction
-
-noremap <leader>cv :call CreateMainEntrance()<cr>
