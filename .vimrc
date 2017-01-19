@@ -153,8 +153,9 @@ let mapleader=","
 
 " Search word under cursor.
 :nmap <space> *
-" Toggle search highlight.
-:nmap <leader><space> :set hls!<cr>
+" Undo search highlight.
+" :nmap <leader><space> :set hls!<cr>
+:nmap <leader><space> :noh<cr>
 " Delete current line in insert mode.
 :imap <c-d> <esc>ddi
 
