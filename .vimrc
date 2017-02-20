@@ -221,7 +221,24 @@ function! RenameFile()
         redraw!
     endif
 endfunction
-map <leader>n :call RenameFile()<cr>"
+map <leader>n :call RenameFile()<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RUN CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! SaveAndRunCurrentFile()
+    " Save current file before run.
+    exec ':w'
+    let current_filetype = &filetype
+    if (current_filetype == 'go')
+        exec ':!go run %'
+    elseif (current_filetype == 'python')
+        exec ':!python %'
+    elseif (current_filetype == 'java')
+        echo 'not supported yet'
+    endif
+endfunction
+map <leader>r :call SaveAndRunCurrentFile()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OpenChangedFiles COMMAND
