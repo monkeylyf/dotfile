@@ -16,14 +16,12 @@ copy_file_to_home_dir () {
     fi
 }
 
-
 set_bash () {
     echo "Setting bash..."
     copy_file_to_home_dir './.bashrc'
     copy_file_to_home_dir './.bash_profile'
     copy_file_to_home_dir './.vimrc'
 }
-
 
 install_homebrew () {
     if test ! $(which brew); then
@@ -34,7 +32,6 @@ install_homebrew () {
     fi
     brew update
 }
-
 
 brew_install () {
     if [ "$#" -ne 1 ]; then
@@ -58,14 +55,13 @@ brew_cask_install () {
     fi
 }
 
-
 install_software () {
+    brew_install cmake
     brew_install vim
     brew_install go
     brew_cask_install google-chrome
     brew_cask_install java
 }
-
 
 install () {
     set_bash
