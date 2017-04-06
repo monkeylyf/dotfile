@@ -236,7 +236,11 @@ function! SaveAndRunCurrentFile()
     elseif (current_filetype == 'python')
         exec ':!python %'
     elseif (current_filetype == 'java')
-        echo 'not supported yet'
+        exec ':!javac % && java %:r'
+    elseif (current_filetype == 'rust')
+        exec ':!rustc % && ./%:r'
+    else
+        echo 'file type ' . current_filetype . ' not supported'
     endif
 endfunction
 map <leader>r :call SaveAndRunCurrentFile()<cr>
