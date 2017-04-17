@@ -16,10 +16,11 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'wincent/command-t'
-Plugin 'taglist.vim'
 Plugin 'rust-lang/rust.vim'
+Plugin 'taglist.vim'
 Plugin 'python.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'

@@ -52,3 +52,14 @@ jclean () {
     directory=$1
     find $directory -name "*.class" -exec rm -f {} \;
 }
+
+# Fire up tmux as dev windows.
+dev () {
+    if type tmux >/dev/null 2>&1; then
+        tmux att || tmux \
+            new  -s dev -n vim \; \
+            splitw -h -p 30 -t 1 \; \
+            splitw -v -p 50 -t 2 \; \
+            selectp -t 1
+    fi
+}

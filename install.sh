@@ -58,6 +58,7 @@ brew_cask_install () {
 install_software () {
     brew_install cmake
     brew_install vim
+    brew_install tmux
     brew_install go
     brew_cask_install google-chrome
     brew_cask_install java
