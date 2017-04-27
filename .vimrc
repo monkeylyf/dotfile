@@ -18,6 +18,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Plugins
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'wincent/command-t'
 Plugin 'rust-lang/rust.vim'
 Plugin 'taglist.vim'
