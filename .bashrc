@@ -9,6 +9,7 @@
 HOMEBREW_VIM_DIR="/usr/local/Cellar/vim/8.0.0066"
 export VIMRUNTIME=$HOMEBREW_VIM_DIR/share/vim/vim80
 alias vim="$HOMEBREW_VIM_DIR/bin/vim"
+alias tmux="tmux att || tmux"
 
 # Rails rvm setup.
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
