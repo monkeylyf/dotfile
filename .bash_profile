@@ -39,7 +39,8 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # Ignore history by adding heading space.
 export HISTIGNORE=' *'
-
+# Set JAVA_HOME.
+export JAVA_HOME=$(/usr/libexec/java_home)
 
 #
 # Alias
