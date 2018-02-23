@@ -1,0 +1,48 @@
+[user]
+	name = Yifeng Liu
+	email = laituan1986@gmail.com
+[core]
+	editor = vim
+	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+	excludesfile = ~/.gitignore
+[alias]
+	# Remove any remote-tracking references that no longer exist on the remote.
+  	# https://git-scm.com/docs/git-fetch#git-fetch--p
+	prune = fetch --prune
+  	# https://git-scm.com/docs/git-reset#git-reset-emgitresetemltmodegtltcommitgt
+	undo = reset --soft HEAD^
+  	# https://git-scm.com/docs/git-stash
+	stash-all = stash save --include-untracked
+  	# https://git-scm.com/docs/git-log
+	glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+[merge]
+  	# https://git-scm.com/docs/git-config#git-config-mergeff
+	ff = only
+  	# Standard diff is two sets of final changes. This introduces the original text before each side's changes.
+  	# https://git-scm.com/docs/git-config#git-config-mergeconflictStyle
+	conflictstyle = diff3
+[commit]
+  	# "other people can trust that the changes you've made really were made by you"
+  	# https://help.github.com/articles/about-gpg/
+  	# https://git-scm.com/docs/git-config#git-config-commitgpgSign
+	gpgSign = true
+[push]
+	default = simple
+  	# https://git-scm.com/docs/git-config#git-config-pushfollowTags
+	followTags = true
+[status]
+  	# https://git-scm.com/docs/git-config#git-config-statusshowUntrackedFiles
+	showUntrackedFiles = all
+[transfer]
+  	# To combat repository corruption!
+  	# Note: this global option applies during receive and transmit
+  	# https://git-scm.com/docs/git-config#git-config-transferfsckObjects
+  	# via https://groups.google.com/forum/#!topic/binary-transparency/f-BI4o8HZW0
+	fsckobjects = true
+# via http://owen.cymru/github-style-diff-in-terminal-with-icdiff/
+[diff]
+	tool = icdiff
+[difftool]
+	prompt = false
+[difftool "icdiff"]
+	cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
