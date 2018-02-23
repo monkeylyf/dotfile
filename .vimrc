@@ -17,15 +17,17 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'tpope/vim-surround'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'wincent/command-t'
+Plugin 'python.vim'
+Plugin 'tpope/vim-fugitive'
 Plugin 'rust-lang/rust.vim'
 Plugin 'taglist.vim'
-Plugin 'python.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 let g:airline_theme='luna'
+Plugin 'wincent/command-t'
 let g:airline_powerline_fonts = 1
 function! AirlineInit()
     let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
@@ -35,9 +37,18 @@ Plugin 'scrooloose/nerdtree'
 " Fireup nerdtree when vim with no args
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Fireup nerdtree no matther there are args or not
+" autocmd vimenter * NERDTree
+" Close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'jiangmiao/auto-pairs'
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Plugin 'jiangmiao/auto-pairs'
 Plugin 'fatih/vim-go'
+" React/Javascript syntax highlighting
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 " Turn on syntax highlights
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -172,8 +183,6 @@ let mapleader=","
 " Delete current line in insert mode.
 :imap <c-d> <esc>ddi
 
-" Plugin taglist.vim. Toggle Tag list.
-nnoremap <leader><leader>t :TlistToggle<CR>
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
@@ -190,6 +199,11 @@ noremap <Right> :echo noarrowkeys<CR>
 inoremap <c-l> <space>=><space>
 " Insert a left rocket with <c-k>
 inoremap <c-k> <space><-<space>
+
+" Plugin shortcuts.
+" Plugin taglist.vim. Toggle Tag list.
+nnoremap <leader><leader>t :TlistToggle<CR>
+nnoremap <leader>e :NERDTree<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
@@ -236,7 +250,7 @@ function! SaveAndRunCurrentFile()
     if (current_filetype == 'go')
         exec ':!go run %'
     elseif (current_filetype == 'python')
-        exec ':!python %'
+        exec ':!python3 %'
     elseif (current_filetype == 'java')
         exec ':!javac % && java %:r'
     elseif (current_filetype == 'rust')
@@ -244,6 +258,7 @@ function! SaveAndRunCurrentFile()
     else
         echo 'file type ' . current_filetype . ' not supported'
     endif
+    "autocmd BufNewFile,BufRead go exec ':!go run %<cr>'
 endfunction
 map <leader>r :call SaveAndRunCurrentFile()<cr>
 
