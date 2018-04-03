@@ -1,0 +1,140 @@
+# To the extent possible under law, the author(s) have dedicated all
+# copyright and related and neighboring rights to this software to the
+# public domain worldwide. This software is distributed without any warranty.
+# You should have received a copy of the CC0 Public Domain Dedication along
+# with this software.
+# If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
+
+# base-files version 4.2-4
+
+# ~/.bash_profile: executed by bash(1) for login shells.
+
+# The latest version as installed by the Cygwin Setup program can
+# always be found at /etc/defaults/etc/skel/.bash_profile
+
+# Modifying /etc/skel/.bash_profile directly will prevent
+# setup from updating it.
+
+# The copy in your home directory (~/.bash_profile) is yours, please
+# feel free to customise it to create a shell
+# environment to your liking.  If you feel a change
+# would be benifitial to all, please feel free to send
+# a patch to the cygwin mailing list.
+
+# User dependent .bash_profile file
+
+# source the users bashrc if it exists
+if [ -f "${HOME}/.bashrc" ] ; then
+  source "${HOME}/.bashrc"
+fi
+
+# setup git env variables so the branch name will show up in bash prompt.
+uname=`uname`
+case $uname in
+    Darwin)
+        source /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
+        #PS1="\u | \W $(__git_ps1)$ "
+        ;;
+    Linux)
+        source /etc/bash_completion.d/git
+        ;;
+    *)
+        ;;
+esac
+
+
+# Colors. 0; => light scene 1; => dark scene.
+BLACK="\e[1:30m"
+BLUE="\e[1;34m"
+CYAN="\e[1;36m"
+GREEN="\e[1;32m"
+RED="\e[1;31m"
+PURPLE="\e[1;35m"
+BROWN="\e[1;33m"
+
+COLOREND="\e[0m"
+
+export PS1='\u | \W\[\033[1;31m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
+export CLICOLOR=1
+#export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+# Ignore history by adding heading space.
+export HISTIGNORE=' *'
+# Set JAVA_HOME.
+# export JAVA_HOME=$(/usr/libexec/java_home)
+
+# Recycle bin path.
+SID=`ls '/cygdrive/c/\$Recycle.Bin/' | head -1`
+RECYCLE_BIN_PATH="/cygdrive/c/\$Recycle.Bin/$SID"
+
+#
+# Alias
+#
+alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+
+
+alias rm='my_rm_wrapper'
+# git formaated log with colors.
+alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gs="git status"
+alias lock="rundll32.exe user32.dll,LockWorkStation"
+
+# Backing out of the current directory
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+alias ......='cd ../../../../../'
+
+# clear shortcut
+alias c='clear'
+
+# Screen
+alias sc="screen -S"
+alias sl="screen -ls"
+alias sr="screen -r"
+
+# Functions
+#
+my_rm_wrapper() {
+    # Removed files are neither visible nor recoverable in Recycle Bin GUI.
+    mv $@ $RECYCLE_BIN_PATH
+}
+
+extract () {
+    if [ -f $1 ] ; then
+      case $1 in
+        *.tar.bz2)   tar xjf $1     ;;
+        *.tar.gz)    tar xzf $1     ;;
+        *.bz2)       bunzip2 $1     ;;
+        *.rar)       unrar e $1     ;;
+        *.gz)        gunzip $1      ;;
+        *.tar)       tar xf $1      ;;
+        *.tbz2)      tar xjf $1     ;;
+        *.tgz)       tar xzf $1     ;;
+        *.zip)       unzip $1       ;;
+        *.Z)         uncompress $1  ;;
+        *.7z)        7z x $1        ;;
+        *)     echo "'$1' cannot be extracted via extract()" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+mcd() {
+    mkdir -p "$1" && cd "$1";
+}
+
+authme() {
+  ssh "$1" 'mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys' \
+    < ~/.ssh/id_rsa.pub
+}
+
+t() {
+    tail -f $1 | perl -pe "s/$2/\e[1;31;43m$&\e[0m/g"
+}
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
