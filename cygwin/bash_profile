@@ -39,6 +39,7 @@ case $uname in
         source /etc/bash_completion.d/git
         ;;
     *)
+        source ~/dotfile/git-prompt.bash
         ;;
 esac
 
