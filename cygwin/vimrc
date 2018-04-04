@@ -186,10 +186,13 @@ let mapleader=","
 :imap <c-d> <esc>ddi
 
 " Move around splits with <c-hjkl>
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h  " Left panel.
+nnoremap <c-j> <c-w>j  " Down panel.
+nnoremap <c-k> <c-w>k  " Up panel.
+nnoremap <c-l> <c-w>l  " Right panel.
+" Move around tabs
+nnoremap <c-Left>  gT  " Previous tab.
+nnoremap <c-Right> gt  " Next tab.
 " Disable arrow keys in normal mode.
 let noarrowkeys="Arrow keys not allowed in normal mode madafacar!"
 noremap <Up> :echo noarrowkeys<CR>
