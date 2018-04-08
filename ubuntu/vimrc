@@ -17,7 +17,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
 Plugin 'Valloric/YouCompleteMe'
-let g:ycm_python_binary_path = '/usr/local/bin/python3'
+let g:ycm_python_binary_path = '/usr/bin/python3'
 " YCM's identifier completer seeds its identifier database with the keywords of
 " the programming language.
 let g:ycm_seed_identifiers_with_syntax = 1
@@ -144,7 +144,7 @@ augroup vimrcEx
 
   " language indentation & softtabstops & expandtab
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,java,scala set ai sw=2 sts=2 et
-  autocmd FileType python set ai sw=4 sts=4 et
+  autocmd FileType python,cs set ai sw=4 sts=4 et
 
   autocmd! BufRead,BufNewFile *.sass setfiletype sass
 
@@ -272,6 +272,8 @@ function! SaveAndRunCurrentFile()
         exec ':!javac % && java %:r'
     elseif (current_filetype == 'rust')
         exec ':!rustc % && ./%:r'
+    elseif (current_filetype == 'cs')
+        exec ':!csc % && mono %:r.exe'
     else
         echo 'file type ' . current_filetype . ' not supported'
     endif
