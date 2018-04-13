@@ -16,8 +16,11 @@ call vundle#begin('$HOME/.vim/bundle')
 Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'tpope/vim-surround'
+Plugin 'Valloric/YouCompleteMe'
+let g:ycm_python_binary_path = '/usr/bin/python3'
+" YCM's identifier completer seeds its identifier database with the keywords of
+" the programming language.
+let g:ycm_seed_identifiers_with_syntax = 1
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'python.vim'
@@ -37,29 +40,7 @@ function! AirlineInit()
     let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
 endfunction
 autocmd VimEnter * call AirlineInit()
-" Plugin 'scrooloose/nerdtree'
-" " Fireup nerdtree when vim with no args
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" " Fireup nerdtree no matther there are args or not
-" " autocmd vimenter * NERDTree
-" " Close vim if the only window left open is a NERDTree
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Plugin 'scrooloose/nerdcommenter'
-" " Add spaces after comment delimiters by default
-" let g:NERDSpaceDelims = 1
-" Plugin 'jiangmiao/auto-pairs'
-" Plugin 'fatih/vim-go'
-" React/Javascript syntax highlighting
 Plugin 'pangloss/vim-javascript'
-" Plugin 'mxw/vim-jsx'
-" " Turn on syntax highlights
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_types = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_build_constraints = 1
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -168,8 +149,12 @@ syntax enable
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COLOR & Scheme
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set term=xterm-color
+let g:solarized_termtrans = 1
 let g:solarized_termcolors=256
+let &t_Co=256
 set background=dark
+colorscheme solarized
 " colorscheme solarized
 
 """"""""""""""""""
@@ -191,8 +176,7 @@ nnoremap <c-j> <c-w>j  " Down panel.
 nnoremap <c-k> <c-w>k  " Up panel.
 nnoremap <c-l> <c-w>l  " Right panel.
 " Move around tabs
-nnoremap <c-Left>  gT  " Previous tab.
-nnoremap <c-Right> gt  " Next tab.
+nnoremap <Tab> gt
 " Disable arrow keys in normal mode.
 let noarrowkeys="Arrow keys not allowed in normal mode madafacar!"
 noremap <Up> :echo noarrowkeys<CR>

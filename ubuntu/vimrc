@@ -196,15 +196,6 @@ nnoremap <c-k> <c-w>k  " Up panel.
 nnoremap <c-l> <c-w>l  " Right panel.
 " Move around tabs
 nnoremap <Tab> gt
-nnoremap <leader>1 1gt
-nnoremap <leader>2 2gt
-nnoremap <leader>3 3gt
-nnoremap <leader>4 4gt
-nnoremap <leader>5 5gt
-nnoremap <leader>6 6gt
-nnoremap <leader>7 7gt
-nnoremap <leader>8 8gt
-nnoremap <leader>9 9gt
 " Disable arrow keys in normal mode.
 let noarrowkeys="Arrow keys not allowed in normal mode madafacar!"
 noremap <Up> :echo noarrowkeys<CR>
