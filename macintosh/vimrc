@@ -235,6 +235,10 @@ noremap <Right> :echo noarrowkeys<CR>
 inoremap <c-l> <space>=><space>
 " Insert a left rocket with <c-k>
 inoremap <c-k> <space><-<space>
+" Plugins shortcuts
+" Ycm shortcuts.
+nnoremap <leader><leader>c :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader><leader>f :YcmCompleter GoToDefinition<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
