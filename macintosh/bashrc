@@ -13,7 +13,7 @@ alias vim="$HOMEBREW_VIM_DIR/bin/vim"
 alias tmux="tmux att || tmux -2"
 alias notice="cd $WORKSPACE/midas/midas/infra/public_notice"
 alias mp="cd $WORKSPACE/midas/mp"
-alias middleware="cd $WORKSPACE/midas/middleware"
+alias middleware="cd $WORKSPACE/midas/midas/middleware"
 alias work="cd $WORKSPACE"
 
 # Rails rvm setup.
