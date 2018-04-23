@@ -100,8 +100,7 @@ alias sr="screen -r"
 # Functions
 #
 my_rm_wrapper() {
-    # Removed files are neither visible nor recoverable in Recycle Bin GUI.
-    mv $@ $RECYCLE_BIN_PATH
+    mv $@ $HOME/.trash
 }
 
 extract () {

@@ -24,9 +24,12 @@ let g:ycm_seed_identifiers_with_syntax = 1
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'python.vim'
-" Plugin 'tpope/vim-fugitive'
+Plugin 'raimondi/delimitmate'
+Plugin 'tpope/vim-fugitive'
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'taglist.vim'
+Plugin 'wincent/command-t'
+let g:CommandTWildIgnore=&wildignore . ",*.pyc,*.exe,*.jpg,*.dll,*.tracker,*.ico,*.nupkg,*.idl,*.wfbondx,*.png,*.nuspec,*.pdb,*.pyd,packages/**,build/**"
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 set term=xterm
@@ -34,7 +37,6 @@ set t_Co=256
 " let &t_AB="\e[48;5;%dm"
 " let &t_AF="\e[38;5;%dm"
 let g:airline_theme='luna'
-Plugin 'wincent/command-t'
 let g:airline_powerline_fonts = 1
 function! AirlineInit()
     let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
@@ -124,7 +126,7 @@ augroup vimrcEx
 
   " language indentation & softtabstops & expandtab
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,java,scala set ai sw=2 sts=2 et
-  autocmd FileType python set ai sw=4 sts=4 et
+  autocmd FileType python,cs set ai sw=4 sts=4 et
 
   autocmd! BufRead,BufNewFile *.sass setfiletype sass
 

@@ -206,7 +206,16 @@ alias l='ls -CF'                              #
 # Export vim runtime path
 # HOMEBREW_VIM_DIR="/usr/local/Cellar/vim/8.0.0066"
 # export VIMRUNTIME=$HOMEBREW_VIM_DIR/share/vim/vim80
+# Aliases.
 alias tmux="tmux att || tmux"
+SATORI_SRC="/cygdrive/d/workspace/EntityRepository/private/src/"
+GRAPH_BUILDING_PROCESSOR="SatoriStreaming/GraphBuildingProcessor "
+alias satori="cd $SATORI_SRC"
+alias ingest="cd $SATORI_SRC/SatoriStreaming/Microsoft.Bing.EntityPlatform.PushServiceV2.IngestionEventProcessor && vim PushIngestionEventProcessor.cs"
+alias graph="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim GraphBuildingEventProcessor.cs"
+alias entity="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim EntityContentEventBatchProcessor.cs"
+alias ppg="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim PPGUpdateEventBatchProcessor.cs"
+alias agg="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim EntityConsistenceProcessor.cs"
 
 # Rails rvm setup.
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
