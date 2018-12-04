@@ -208,17 +208,21 @@ alias l='ls -CF'                              #
 # export VIMRUNTIME=$HOMEBREW_VIM_DIR/share/vim/vim80
 # Aliases.
 alias tmux="tmux att || tmux"
-SATORI_SRC="/cygdrive/d/workspace/EntityRepository/private/src/"
+D_DISK="/cygdrive/d"
+SATORI_SRC="$D_DISK/workspace/EntityRepository/private/src/"
 GRAPH_BUILDING_PROCESSOR="SatoriStreaming/GraphBuildingProcessor "
-alias satori="cd $SATORI_SRC"
+alias satori="cd $SATORI_SRC/SatoriStreaming"
 alias ingest="cd $SATORI_SRC/SatoriStreaming/Microsoft.Bing.EntityPlatform.PushServiceV2.IngestionEventProcessor && vim PushIngestionEventProcessor.cs"
 alias graph="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim GraphBuildingEventProcessor.cs"
 alias entity="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim EntityContentEventBatchProcessor.cs"
 alias ppg="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim PPGUpdateEventBatchProcessor.cs"
 alias agg="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim EntityConsistenceProcessor.cs"
+alias vm="ssh yifeliu@stcvl-153"
 
 # Rails rvm setup.
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# Ansible.
+export ANSIBLE_CONFIG=${HOME}/.ansible.cfg
 
 # echo wrapper
 myecho () {

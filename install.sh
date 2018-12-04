@@ -27,9 +27,15 @@ create_soft_link () {
     relative_filename=$1
     dir="dirname $relative_filename"
     filename=$(basename $relative_filename)
-    symlink_filename="${HOME}/.${filename}"
-    echo "ln -s $CURRENT_DIR/$relative_filename $symlink_filename"
-    # Removes existing destination files, if any, before creating a new one.
+    if [ "$filename" == "sshconfig" ]
+    then
+        # Special case for ssh config
+        symlink_filename="${HOME}/.ssh/config"
+    else
+        symlink_filename="${HOME}/.${filename}"
+        # Removes existing destination files, if any, before creating a new one.
+    fi
+    echo "ln -sf $CURRENT_DIR/$relative_filename $symlink_filename"
     ln -sf $CURRENT_DIR/$relative_filename $symlink_filename
 }
 
@@ -38,7 +44,6 @@ link_dotfiles () {
     for relative_filename in $ENV_DOTIFLE_DIR/*; do
         create_soft_link $relative_filename
     done
-
 }
 
 install_dotfiles () {
