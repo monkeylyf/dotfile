@@ -217,10 +217,14 @@ alias graph="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim GraphBuildingEventP
 alias entity="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim EntityContentEventBatchProcessor.cs"
 alias ppg="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim PPGUpdateEventBatchProcessor.cs"
 alias agg="cd $SATORI_SRC/$GRAPH_BUILDING_PROCESSOR && vim EntityConsistenceProcessor.cs"
+alias wiki="cd $D_DISK/workspace/ep/private/src/WikipediaBajaPipeline"
 alias vm="ssh yifeliu@stcvl-153"
+alias mvn="/cygdrive/d/apache-maven-3.6.0/bin/mvn"
+alias chromedriver="/cygdrive/d/chromedriver/chromedriver.exe"
 
 # Rails rvm setup.
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export JAVA_HOME="/cygdrive/c/PROGRA~1/Java/jdk1.8.0_202"
 # Ansible.
 export ANSIBLE_CONFIG=${HOME}/.ansible.cfg
 
@@ -273,4 +277,9 @@ dev () {
             splitw -v -p 50 -t 2 \; \
             selectp -t 1
     fi
+}
+
+
+vzf () {
+    vim -o `fzf`
 }

@@ -8,3 +8,4 @@ FontSmoothing=default
 AllowBlinking=no
 Locale=
 Charset=
+FontHeight=10
