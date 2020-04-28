@@ -28,22 +28,33 @@ Plugin 'raimondi/delimitmate'
 Plugin 'tpope/vim-fugitive'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'peitalin/vim-jsx-typescript'
+" set filetypes as typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+" Orange
+hi tsxCloseString guifg=#F99575
+hi tsxCloseTag guifg=#F99575
+hi tsxCloseTagName guifg=#F99575
+hi tsxAttributeBraces guifg=#F99575
+hi tsxEqual guifg=#F99575
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'taglist.vim'
 Plugin 'wincent/command-t'
 let g:CommandTWildIgnore=&wildignore . ",*.pyc,*.exe,*.jpg,*.dll,*.tracker,*.ico,*.nupkg,*.idl,*.wfbondx,*.png,*.nuspec,*.pdb,*.pyd,packages/**,build/**"
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-set term=xterm
-set t_Co=256
+
+Plugin 'itchyny/lightline.vim'
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
+" set term=xterm
+" set t_Co=256
 " let &t_AB="\e[48;5;%dm"
 " let &t_AF="\e[38;5;%dm"
-let g:airline_theme='luna'
-let g:airline_powerline_fonts = 1
-function! AirlineInit()
-    let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
-endfunction
-autocmd VimEnter * call AirlineInit()
+" let g:airline_theme='luna'
+" let g:airline_powerline_fonts = 1
+" function! AirlineInit()
+"     let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
+" endfunction
+" autocmd VimEnter * call AirlineInit()
+
 Plugin 'pangloss/vim-javascript'
 
 " All of your Plugins must be added before the following line
@@ -53,7 +64,6 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""
 " Basic Editing Configuration
 """""""""""""""""""""""""""""
-set nocompatible
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 " Remember number of commands as history
