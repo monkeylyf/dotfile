@@ -1,4 +1,4 @@
-" This is Yifeng's .vimrc file, expanded on Gary Bernhardt's .vimrc file
+" This is Yifeng's .vimrc file
 
 """""""""""""""""""""""
 " Bundle plugin session.
@@ -8,42 +8,71 @@ filetype off
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+
+" set the runtime path to include Vundle and initialize.
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
+call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
+"""""""""""""""""""""""
 " Plugin 'airblade/vim-gitgutter'
 " Update time to generate a git diff.
 " set updatetime=100
 " let g:gitgutter_override_sign_column_highlight = 0
 " Max signs.
 " let g:gitgutter_max_signs = 500
+"""""""""""""""""""""""
 Plugin 'altercation/vim-colors-solarized'
+"""""""""""""""""""""""
 Plugin 'christoomey/vim-tmux-navigator'
+"""""""""""""""""""""""
+Plugin 'vifm/vifm.vim'
+"""""""""""""""""""""""
 Plugin 'python.vim'
-Plugin 'vim-scripts/nginx.vim'
-Plugin 'raimondi/delimitmate'
+"""""""""""""""""""""""
+" Plugin 'vim-scripts/nginx.vim'
+"""""""""""""""""""""""
+" Plugin 'raimondi/delimitmate'
+"""""""""""""""""""""""
 " Plugin 'rust-lang/rust.vim'
-Plugin 'sirver/ultisnips'
+"""""""""""""""""""""""
+Plugin 'leafgarland/typescript-vim'
+let g:typescript_indent_disable = 1
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+"""""""""""""""""""""""
+" Plugin 'sirver/ultisnips'
+"""""""""""""""""""""""
 " Plugin 'taglist.vim'
+"""""""""""""""""""""""
 Plugin 'terryma/vim-multiple-cursors'
+"""""""""""""""""""""""
 Plugin 'tpope/vim-fugitive'
-" Plugin 'tpope/vim-surround'
+"""""""""""""""""""""""
+Plugin 'tpope/vim-surround'
+"""""""""""""""""""""""
+Plugin 'ap/vim-css-color'
+"""""""""""""""""""""""
 " Plugin 'w0rp/ale'
+"""""""""""""""""""""""
 Plugin 'wincent/command-t'
 let g:CommandTWildIgnore=&wildignore . ",*.pyc"
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-let g:airline_theme='luna'
-let g:airline_powerline_fonts = 1
-function! AirlineInit()
-    let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
-endfunction
-autocmd VimEnter * call AirlineInit()
+"""""""""""""""""""""""
+Plugin 'itchyny/lightline.vim'
+"""""""""""""""""""""""
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
+" let g:airline_theme='luna'
+" let g:airline_powerline_fonts = 1
+" function! AirlineInit()
+"     let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
+" endfunction
+" autocmd VimEnter * call AirlineInit()
+"""""""""""""""""""""""
 " Plugin 'scrooloose/syntastic'
 " let g:syntastic_check_on_open=1
 " set statusline+=%#warningmsg#
@@ -54,6 +83,7 @@ autocmd VimEnter * call AirlineInit()
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
 " let g:syntastic_check_on_wq = 0
+"""""""""""""""""""""""
 " Plugin 'scrooloose/nerdtree'
 " Fireup nerdtree when vim with no args
 " autocmd StdinReadPre * let s:std_in=1
@@ -64,13 +94,16 @@ autocmd VimEnter * call AirlineInit()
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Ignore file
 " :let g:NERDTreeIgnore=['\~$', '__pycache__']
+"""""""""""""""""""""""
 "Plugin 'scrooloose/nerdcommenter'
 " Add spaces after comment delimiters by default
 " let g:NERDSpaceDelims = 1
 " Plugin 'jiangmiao/auto-pairs'
 " Plugin 'fatih/vim-go'
+"""""""""""""""""""""""
 " React/Javascript syntax highlighting
 Plugin 'pangloss/vim-javascript'
+"""""""""""""""""""""""
 " Plugin 'mxw/vim-jsx'
 " Turn on syntax highlights
 "let g:go_highlight_functions = 1
@@ -79,25 +112,29 @@ Plugin 'pangloss/vim-javascript'
 "let g:go_highlight_types = 1
 "let g:go_highlight_operators = 1
 "let g:go_highlight_build_constraints = 1
-Plugin 'Valloric/YouCompleteMe'
+"""""""""""""""""""""""
+" Plugin 'Valloric/YouCompleteMe'
 let g:ycm_python_binary_path = '/usr/local/bin/python3'
 " YCM's identifier completer seeds its identifier database with the keywords of
 " the programming language.
 let g:ycm_seed_identifiers_with_syntax = 1
+"""""""""""""""""""""""
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+
 filetype plugin indent on    " required
 
 """""""""""""""""""""""""""""
 " Basic Editing Configuration
 """""""""""""""""""""""""""""
-set nocompatible
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 " Remember number of commands as history
 set history=1000
 " insert space characters whenever the tab key is pressed
 set expandtab
+" Be smart when using tabs lol
+set smarttab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -149,7 +186,13 @@ set nojoinspaces
 " If a file is changed outside of vim, automatically reload it without asking
 set autoread
 " set line number.
-set number
+set number relativenumber
+
+set path+=**                    " Searches current directory recursively.
+set wildmenu					" Display all matches when tab complete.
+set incsearch
+set nobackup
+set noswapfile
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
@@ -165,7 +208,7 @@ augroup vimrcEx
     \ endif
 
   " language indentation & softtabstops & expandtab
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,java,scala set ai sw=2 sts=2 et
+  autocmd FileType ruby,haml,eruby,yaml,html,javascript,typescript,java,scala set ai sw=2 sts=2 et
   autocmd FileType python set ai sw=4 sts=4 et
 
   autocmd! BufRead,BufNewFile *.sass setfiletype sass
@@ -192,6 +235,7 @@ syntax enable
 " COLOR & Scheme
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:solarized_termcolors=256
+let g:rehash256=1
 set background=dark
 colorscheme solarized
 
@@ -207,6 +251,15 @@ let mapleader=","
 :nmap <leader><space> :noh<CR>
 " Delete current line in insert mode.
 :imap <c-d> <esc>ddi
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vifm
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Leader>v :Vifm<CR>
+map <Leader>vs :VsplitVifm<CR>
+map <Leader>sp :SplitVifm<CR>
+map <Leader>dv :DiffVifm<CR>
+map <Leader>tv :TabVifm<CR>
 
 " Move around splits with <c-hjkl>
 nnoremap <c-h> <c-w>h  " Left panel.
@@ -289,7 +342,14 @@ function! SaveAndRunCurrentFile()
     elseif (current_filetype == 'java')
         exec ':!javac % && java %:r'
     elseif (current_filetype == 'rust')
-        exec ':!rustc % && ./%:r'
+        "let dir = fnamemodify('.', ':p')
+        "let project = split(dir, '/')[-1]
+        "echo 'Cargo Building project [' . project ']...'
+        " The following cargo build command is customized for monkeos project.
+        "exec ':!cargo rustc -- -Z pre-link-arg=-lSystem && ./target/debug/' . project
+        exec ':!rustc % && RUST_BACKTRACE=1 ./%:r && rm ./%:r'
+    elseif (current_filetype == 'cpp')
+        exec ':!g++ % -o ./%:r && ./%:r'
     else
         echo 'file type ' . current_filetype . ' not supported'
     endif

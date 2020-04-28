@@ -10,7 +10,7 @@ export HISTSIZE=10000
 uname=`uname`
 case $uname in
     Darwin)
-        source /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
+        source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh
         #PS1="\u | \W $(__git_ps1)$ "
         ;;
     Linux)
@@ -44,6 +44,26 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 export HISTIGNORE=' *'
 # Set JAVA_HOME.
 export JAVA_HOME=$(/usr/libexec/java_home)
+# Hadoop.
+#export HADOOP_HOME=/usr/local/Cellar/hadoop/3.1.1
+#export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+#export HADOOP_PREFIX=/usr/local/Cellar/hadoop/3.1.1
+#export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+#export HADOOP_MAPRED_HOME=$HADOOP_HOME
+#export HADOOP_COMMON_HOME=$HADOOP_HOME
+#export HADOOP_HDFS_HOME=$HADOOP_HOME
+#export YARN_HOME=$HADOOP_HOME
+#
+#export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+#export HADOOP_OPTS="${HADOOP_OPTS} -Djava.library.path=$HADOOP_HOME/lib"
+#export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar
+#
+#export JAVA_LIBRARY_PATH=$HADOOP_HOME/lib/native:$JAVA_LIBRARY_PATH
+# For compilers to find zlib you may need to set:
+# export LDFLAGS="-L/usr/local/opt/zlib/lib"
+# export CPPFLAGS="-I/usr/local/opt/zlib/include"
+# For pkg-config to find zlib you may need to set:
+# export PKG_CONFIG_PATH="/usr/local/opt/zlib/lib/pkgconfig"
 
 #
 # Alias
@@ -115,3 +135,19 @@ t() {
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 export PATH=/usr/local/Cellar/python/3.6.3/bin/:$PATH
+
+# Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
+export COCOS_CONSOLE_ROOT="/Users/yifengliu/workspace/cocos2d-x-3.17/tools/cocos2d-console/bin"
+export PATH=$COCOS_CONSOLE_ROOT:$PATH
+
+# Add environment variable COCOS_X_ROOT for cocos2d-x
+export COCOS_X_ROOT="/Users/yifengliu/workspace"
+export PATH=$COCOS_X_ROOT:$PATH
+
+# Add environment variable COCOS_TEMPLATES_ROOT for cocos2d-x
+export COCOS_TEMPLATES_ROOT="/Users/yifengliu/workspace/cocos2d-x-3.17/templates"
+export PATH=$COCOS_TEMPLATES_ROOT:$PATH
+#
+export PATH="/usr/local/opt/cython/bin:$PATH"
+
+export PATH="$HOME/.cargo/bin:$PATH"
