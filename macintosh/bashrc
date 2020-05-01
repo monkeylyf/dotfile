@@ -20,6 +20,8 @@ alias work="cd $WORKSPACE"
 alias wzw="ssh ubuntu@www.ngwzw.xyz"
 alias saul="ssh root@47.111.237.12"
 alias starthbase="/usr/local/opt/hbase/bin/start-hbase.sh"
+# Replace ls with exa, which requires `brew install exa`.
+alias ls="exa -la"
 
 # Rails rvm setup.
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

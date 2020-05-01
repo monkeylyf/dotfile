@@ -45,6 +45,8 @@ let g:typescript_indent_disable = 1
 let g:typescript_compiler_binary = 'tsc'
 let g:typescript_compiler_options = ''
 """""""""""""""""""""""
+Plugin 'HerringtonDarkholme/yats.vim'
+"""""""""""""""""""""""
 " Plugin 'sirver/ultisnips'
 """""""""""""""""""""""
 " Plugin 'taglist.vim'
