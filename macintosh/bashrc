@@ -12,14 +12,9 @@ MIDAS="${WORKSPACE}/midas"
 export VIMRUNTIME=$HOMEBREW_VIM_DIR/share/vim/vim80
 alias vim="$HOMEBREW_VIM_DIR/bin/vim"
 alias tmux="tmux att || tmux -2"
-alias notice="cd $MIDAS/midas/infra/public_notice"
-alias mp="cd $MIDAS/mp"
-alias middleware="cd $MIDAS/midas/middleware"
-alias midas="cd $MIDAS"
 alias work="cd $WORKSPACE"
-alias wzw="ssh ubuntu@www.ngwzw.xyz"
 alias saul="ssh root@47.111.237.12"
-alias starthbase="/usr/local/opt/hbase/bin/start-hbase.sh"
+alias sleep="pmset sleepnow"
 # Replace ls with exa, which requires `brew install exa`.
 alias ls="exa -la"
 
