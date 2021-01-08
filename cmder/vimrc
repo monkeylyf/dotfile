@@ -1,0 +1,127 @@
+" Yifeng's .vimrc file for cmder.
+
+set nocompatible
+filetype off
+
+""""""""""""
+" Syntax
+"""""""""""
+syntax on
+syntax enable
+
+"""""""""""""""""""""""""""""
+" Basic Editing Configuration
+"""""""""""""""""""""""""""""
+" allow unsaved background buffers and remember marks/undo for them
+set hidden
+" Remember number of commands as history
+set history=1000
+" insert space characters whenever the tab key is pressed
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+" show matched bracket
+set showmatch
+" refine search pattern when typing
+set incsearch
+" search with highlight
+set hlsearch
+" make searches case-sensitive only if they contain upper-case characters
+set ignorecase smartcase
+" command line window height
+set cmdheight=1
+" buffer management...
+set switchbuf=useopen
+set showtabline=2
+set winwidth=79
+" Prevent Vim from clobbering the scrollback buffer. See
+" http://www.shallowsky.com/linux/noaltscreen.html
+set t_ti= t_te=
+" keep more context when scrolling off the end of a buffer
+set scrolloff=5
+" make no backups at all
+set nobackup
+set nowritebackup
+" group all .swp files in one location
+set backupdir=c:\\Tmp
+set directory=c:\\Tmp
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+" display command while typing
+set showcmd
+" use emacs-style tab completion when selecting files, etc
+set wildmode=longest,list
+" make tab completion for files/buffers act like bash
+set wildmenu
+" Fix slow O inserts
+set timeout timeoutlen=1000 ttimeoutlen=100
+" Normally, Vim messes with iskeyword when you open a shell file. This can
+" leak out, polluting other file types even after a 'set ft=' change. This
+" variable prevents the iskeyword change so it can't hurt anyone.
+let g:sh_noisk=1
+" Turn on folding
+set foldmethod=syntax
+set foldlevel=99
+" Insert only one space when joining lines that contain sentence-terminating
+" punctuation like `.`.
+set nojoinspaces
+" If a file is changed outside of vim, automatically reload it without asking
+set autoread
+" set line number.
+set number
+" Show relative line numbers.
+set relativenumber
+
+" Disable arrow keys in normal mode.
+let noarrowkeys="Arrow keys not allowed in normal mode madafacar!"
+noremap <Up> :echo noarrowkeys<CR>
+noremap <Down> :echo noarrowkeys<CR>
+noremap <Left> :echo noarrowkeys<CR>
+noremap <Right> :echo noarrowkeys<CR>
+
+""""""""""""""""""
+" Mapping & Leader
+""""""""""""""""""
+let mapleader=","
+
+" Search word under cursor.
+:nmap <space> *
+" Undo search highlight.
+:nmap <leader><space> :noh<cr>
+
+augroup vimrcEx
+    " Removes trailing whitespaces triggered by pre buffer write event
+    autocmd BufWritePre * :%s/\s\+$//e
+    " Detects Python file type.
+    autocmd BufNewFile,BufRead *.py set filetype=python
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    echom "debug: " . col
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+" inoremap <s-tab> <c-n>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run current file by its file type
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! SaveAndRunCurrentFile()
+    " Save all changed buffers before run.
+    exec ':wa'
+    let current_filetype = &filetype
+    if (current_filetype == 'python')
+        exec ':!python %'
+    endif
+endfunction
+map <leader>r :call SaveAndRunCurrentFile()<cr>
