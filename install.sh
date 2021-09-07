@@ -18,6 +18,9 @@ for i in "$@"; do
         ubuntu)
             DOTFILE_ENV="ubuntu"
             ;;
+        debian)
+            DOTFILE_ENV="debian"
+            ;;
         *)
             ;;
     esac
@@ -51,7 +54,7 @@ link_dotfiles () {
 install_dotfiles () {
     if [ -z "$DOTFILE_ENV" ]; then
         echo "Unknown environment..."
-        echo "usage: install {cygwin|macintosh|ubuntu}"
+        echo "usage: install {cygwin|macintosh|ubuntu|debian}"
         exit 1
     else
         link_dotfiles
