@@ -42,7 +42,9 @@ create_soft_link () {
 link_dotfiles () {
     ENV_DOTIFLE_DIR=${DIRNAME}/${DOTFILE_ENV}
     for relative_filename in $ENV_DOTIFLE_DIR/*; do
-        create_soft_link $relative_filename
+        if [[ ! -x $relative_filename ]]; then
+            create_soft_link $relative_filename
+        fi
     done
 }
 

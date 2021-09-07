@@ -44,26 +44,6 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 export HISTIGNORE=' *'
 # Set JAVA_HOME.
 export JAVA_HOME=$(/usr/libexec/java_home)
-# Hadoop.
-#export HADOOP_HOME=/usr/local/Cellar/hadoop/3.1.1
-#export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
-#export HADOOP_PREFIX=/usr/local/Cellar/hadoop/3.1.1
-#export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
-#export HADOOP_MAPRED_HOME=$HADOOP_HOME
-#export HADOOP_COMMON_HOME=$HADOOP_HOME
-#export HADOOP_HDFS_HOME=$HADOOP_HOME
-#export YARN_HOME=$HADOOP_HOME
-#
-#export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
-#export HADOOP_OPTS="${HADOOP_OPTS} -Djava.library.path=$HADOOP_HOME/lib"
-#export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar
-#
-#export JAVA_LIBRARY_PATH=$HADOOP_HOME/lib/native:$JAVA_LIBRARY_PATH
-# For compilers to find zlib you may need to set:
-# export LDFLAGS="-L/usr/local/opt/zlib/lib"
-# export CPPFLAGS="-I/usr/local/opt/zlib/include"
-# For pkg-config to find zlib you may need to set:
-# export PKG_CONFIG_PATH="/usr/local/opt/zlib/lib/pkgconfig"
 
 #
 # Alias
@@ -148,5 +128,6 @@ export PATH=$COCOS_TEMPLATES_ROOT:$PATH
 #
 export PATH="/usr/local/opt/cython/bin:$PATH"
 
+export PATH="$HOME/.cargo/bin:$PATH"
 export RUSTUP_DIST_SERVER=https://mirrors.sjtug.sjtu.edu.cn/rust-static/
 . "$HOME/.cargo/env"
