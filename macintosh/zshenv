@@ -1,17 +1,35 @@
-# Source ~/.bashrc if exists.
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-fi
+echo "Activating zshenv..."
 
+# History management.
+HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+HIST_STAMPS="mm/dd/yyyy"
 # Set max bash history size.
 export HISTFILESIZE=10000
 export HISTSIZE=10000
+setopt EXTENDED_HISTORY
+# share history across multiple zsh sessions
+setopt SHARE_HISTORY
+# append to history
+setopt APPEND_HISTORY
+# adds commands as they are typed, not at shell exit
+setopt INC_APPEND_HISTORY
+# expire duplicates first
+setopt HIST_EXPIRE_DUPS_FIRST
+# do not store duplications
+setopt HIST_IGNORE_DUPS
+#ignore duplicates when searching
+setopt HIST_FIND_NO_DUPS
+# removes blank lines from history
+setopt HIST_REDUCE_BLANKS
+# Command/path correction.
+setopt CORRECT
+setopt CORRECT_ALL
+
 # setup git env variables so the branch name will show up in bash prompt.
 uname=`uname`
 case $uname in
     Darwin)
         source /Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh
-        #PS1="\u | \W $(__git_ps1)$ "
         ;;
     Linux)
         source /etc/bash_completion.d/git
@@ -21,6 +39,9 @@ case $uname in
         ;;
 esac
 
+# Case insensitive globbing.
+setopt NO_CASE_GLOB
+setopt GLOB_COMPLETE
 
 # Colors. 0; => light scene 1; => dark scene.
 BLACK="\e[1:30m"
@@ -33,11 +54,7 @@ BROWN="\e[1;33m"
 
 COLOREND="\e[0m"
 
-export PS1='\u | \W\[\033[1;31m\]$(__git_ps1 " (%s)")\[\033[0m\]\$ '
-#export PS1="$CYAN\u$COLOREND$RED |$COLOREND $BROWN\W$COLOREND$GREEN$ $COLOREND"
-#export PS1="\u | \W $(__git_ps1)$ "
 export CLICOLOR=1
-#export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # Ignore history by adding heading space.
@@ -49,31 +66,24 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 # Alias
 #
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
-
-
 alias rm='my_rm_wrapper'
 # git formaated log with colors.
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gs="git status"
-
-# Backing out of the current directory
-alias cd..='cd ..'
-alias ..='cd ..'
+# clear shortcut
+alias c='clear'
+# Screen
+alias sc="screen -S"
+alias sl="screen -ls"
+alias sr="screen -r"
+# Backing out of the current directory.
+setopt AUTO_CD  # Support ``..`
 alias ...='cd ../../'
 alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias ......='cd ../../../../../'
 
-# clear shortcut
-alias c='clear'
-
-# Screen
-alias sc="screen -S"
-alias sl="screen -ls"
-alias sr="screen -r"
-
 # Functions
-#
 my_rm_wrapper() {
     mv $@ ~/.trash
 }
@@ -112,22 +122,23 @@ t() {
     tail -f $1 | perl -pe "s/$2/\e[1;31;43m$&\e[0m/g"
 }
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+# echo wrapper
+myecho () {
+    echo $0 `date "+%Y-%m-%d %H:%M:%S"` "$@"
+}
 
-# Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
-export COCOS_CONSOLE_ROOT="/Users/yifengliu/workspace/cocos2d-x-3.17/tools/cocos2d-console/bin"
-export PATH=$COCOS_CONSOLE_ROOT:$PATH
+# Dir tree display
+tree () {
+    if [ $# -eq 0 ]; then
+    	curDir=`pwd`
+    else
+    	curDir=$1
+    fi
+    # ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+    echo $curDir
+    ls -R $curDir | grep ':$' | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+}
 
-# Add environment variable COCOS_X_ROOT for cocos2d-x
-export COCOS_X_ROOT="/Users/yifengliu/workspace"
-export PATH=$COCOS_X_ROOT:$PATH
-
-# Add environment variable COCOS_TEMPLATES_ROOT for cocos2d-x
-export COCOS_TEMPLATES_ROOT="/Users/yifengliu/workspace/cocos2d-x-3.17/templates"
-export PATH=$COCOS_TEMPLATES_ROOT:$PATH
-#
-export PATH="/usr/local/opt/cython/bin:$PATH"
-
+# Rust.
 export PATH="$HOME/.cargo/bin:$PATH"
 export RUSTUP_DIST_SERVER=https://mirrors.sjtug.sjtu.edu.cn/rust-static/
-. "$HOME/.cargo/env"
