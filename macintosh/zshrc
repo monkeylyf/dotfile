@@ -81,7 +81,7 @@ zstyle ':vcs_info:git:*' formats '(%b)'
 # Set up the prompt (with git branch name)
 setopt PROMPT_SUBST
 #PROMPT='%F{blue}%1~%f %# '
-PROMPT='yifeng@mac | %2~ %F{cyan}${vcs_info_msg_0_}%f$ '
+PROMPT='yifeng@mac | %2~ %F{red}${vcs_info_msg_0_}%f$ '
 
 # User configuration
 

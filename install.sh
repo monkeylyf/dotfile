@@ -3,23 +3,24 @@
 set -e
 
 INSTALL_FILENAME=$0
-DIRNAME=$(dirname ${INSTALL_FILENAME})
+# Relative dir to dotfile repo.
+DOT_FILE_RELATIVE_DIR=$(dirname ${INSTALL_FILENAME})
 CURRENT_DIR=`pwd`
 
 
 for i in "$@"; do
     case $i in
         cygwin)
-            DOTFILE_ENV="cygwin"
+            DEV_ENV="cygwin"
             ;;
         mac|macintosh)
-            DOTFILE_ENV="macintosh"
+            DEV_ENV="macintosh"
             ;;
         ubuntu)
-            DOTFILE_ENV="ubuntu"
+            DEV_ENV="ubuntu"
             ;;
         debian)
-            DOTFILE_ENV="debian"
+            DEV_ENV="debian"
             ;;
         *)
             ;;
@@ -28,10 +29,9 @@ done
 
 create_soft_link () {
     relative_filename=$1
-    dir="dirname $relative_filename"
+    dir="DOT_FILE_RELATIVE_DIR $relative_filename"
     filename=$(basename $relative_filename)
-    if [ "$filename" == "sshconfig" ]
-    then
+    if [ "$filename" == "sshconfig" ]; then
         # Special case for ssh config
         symlink_filename="${HOME}/.ssh/config"
     else
@@ -43,7 +43,7 @@ create_soft_link () {
 }
 
 link_dotfiles () {
-    ENV_DOTIFLE_DIR=${DIRNAME}/${DOTFILE_ENV}
+    ENV_DOTIFLE_DIR=${DOT_FILE_RELATIVE_DIR}/${DEV_ENV}
     for relative_filename in $ENV_DOTIFLE_DIR/*; do
         if [[ ! -x $relative_filename ]]; then
             create_soft_link $relative_filename
@@ -52,7 +52,7 @@ link_dotfiles () {
 }
 
 install_dotfiles () {
-    if [ -z "$DOTFILE_ENV" ]; then
+    if [ -z "$DEV_ENV" ]; then
         echo "Unknown environment..."
         echo "usage: install {cygwin|macintosh|ubuntu|debian}"
         exit 1
@@ -62,4 +62,14 @@ install_dotfiles () {
     fi
 }
 
-install_dotfiles
+install_config () {
+    if [ "$DEV_ENV" == "macintosh" ]; then
+        config_dir=${CURRENT_DIR}/${DOT_FILE_RELATIVE_DIR}/${DEV_ENV}/config
+        symlink_dir="${HOME}/.config"
+        echo "ln -s ${config_dir} $symlink_dir"
+        ln -s ${config_dir} $symlink_dir
+    fi
+}
+
+#install_dotfiles
+install_config
