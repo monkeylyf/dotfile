@@ -104,7 +104,7 @@ Plugin 'itchyny/lightline.vim'
 " Plugin 'fatih/vim-go'
 """""""""""""""""""""""
 " React/Javascript syntax highlighting
-Plugin 'pangloss/vim-javascript'
+" Plugin 'pangloss/vim-javascript'
 """""""""""""""""""""""
 " Plugin 'mxw/vim-jsx'
 " Turn on syntax highlights
@@ -287,13 +287,13 @@ noremap <Left> :echo noarrowkeys<CR>
 noremap <Right> :echo noarrowkeys<CR>
 
 " Insert a hash rocket with <c-l>
-inoremap <c-l> <space>=><space>
+" inoremap <c-l> <space>=><space>
 " Insert a left rocket with <c-k>
-inoremap <c-k> <space><-<space>
+" inoremap <c-k> <space><-<space>
 " Plugins shortcuts
 " Ycm shortcuts.
-nnoremap <leader><leader>c :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader><leader>f :YcmCompleter GoToDefinition<CR>
+" nnoremap <leader><leader>c :YcmCompleter GoToDeclaration<CR>
+" nnoremap <leader><leader>f :YcmCompleter GoToDefinition<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
