@@ -115,6 +115,11 @@ if command -v exa &> /dev/null; then
     alias ls="exa -la";
 fi
 
+# If kitty is installed as terminal, pass in terminfo with ssh.
+if command -v kitty &> /dev/null; then
+    alias ssh="kitty +kitten ssh";
+fi
+
 # Export vim runtime path.
 if [ -x '/usr/local/vim/bin/vim' ]; then
     alias vim='/usr/local/vim/bin/vim'

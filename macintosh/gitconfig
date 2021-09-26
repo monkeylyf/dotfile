@@ -26,6 +26,8 @@
   	# https://help.github.com/articles/about-gpg/
   	# https://git-scm.com/docs/git-config#git-config-commitgpgSign
 	gpgSign = false
+[pull]
+    ff = only
 [push]
 	default = current
   	# https://git-scm.com/docs/git-config#git-config-pushfollowTags

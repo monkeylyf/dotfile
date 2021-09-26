@@ -1,9 +1,9 @@
 # History management.
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HIST_STAMPS="mm/dd/yyyy"
+SAVEHIST=10000
+HISTSIZE=10000
 # Set max bash history size.
-export HISTFILESIZE=10000
-export HISTSIZE=10000
 setopt EXTENDED_HISTORY
 # share history across multiple zsh sessions
 setopt SHARE_HISTORY
