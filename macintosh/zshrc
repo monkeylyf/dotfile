@@ -153,7 +153,7 @@ dev () {
     if type tmux >/dev/null 2>&1; then
         tmux att || tmux \
             new  -s dev -n vim \; \
-            splitw -h -p 30 -t 1 \; \
+            splitw -h -p 40 -t 1 \; \
             splitw -v -p 50 -t 2 \; \
             selectp -t 1
     fi

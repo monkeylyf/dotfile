@@ -18,15 +18,18 @@ Plugin 'VundleVim/Vundle.vim'
 " Command-t.
 Plugin 'wincent/command-t'
 set wildignore+=*/node_modules  " Ignore node blackhole
+set wildignore+=*/dist  " Ignore build output dir
 set wildignore+=*.pyc  " Ignore pyc file
-let g:CommentedTWildIgnore=&wildignore
+let g:CommandTWildIgnore=&wildignore
+let g:CommandTTraverseSCM='pwd'
 " Navigate between different tmux panel/vim
 Plugin 'christoomey/vim-tmux-navigator'
 " COC
 Plugin 'neoclide/coc.nvim'
 " Color scheme
 Plugin 'morhetz/gruvbox'
-" Plugin 'itchyny/lightline.vim'
+" Tab bar
+Plugin 'mkitt/tabline.vim'
 
 call vundle#end()  " required
 """""""""""""""""""""""
@@ -116,11 +119,6 @@ set signcolumn=number
 syntax enable
 
 """"""""""""""""""
-" Tags
-""""""""""""""""""
-set tags=./tags,tags;$HOME
-
-""""""""""""""""""
 " Mapping & Leader
 """"""""""""""""""
 let mapleader=","
@@ -128,7 +126,6 @@ let mapleader=","
 " Search word under cursor.
 :nmap <space> *
 " Undo search highlight.
-" :nmap <leader><space> :set hls!<cr>
 :nmap <leader><space> :noh<CR>
 " Delete current line in insert mode.
 :imap <c-d> <esc>ddi
@@ -162,21 +159,6 @@ noremap <Down> :echo noarrowkeys<CR>
 set laststatus=2
 set statusline=%<%F%h%m%r%h%w%y\ %{strftime(\"%c\",getftime(expand(\"%:p\")))}%=\ %l\/%L\,%c%V\ %P
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MULTIPURPOSE TAB KEY
-" Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" function! InsertTabWrapper()
-"     let col = col('.') - 1
-"     echom "debug: " . col
-"     if !col || getline('.')[col - 1] !~ '\k'
-"         return "\<tab>"
-"     else
-"         return "\<c-P>"
-"     endif
-" endfunction
-" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-
 """"""""""""""""""""""
 " COC
 """"""""""""""""""""""
@@ -191,19 +173,16 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap [g <Plug>(coc-diagnostic-prev)
 nmap ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
-nmap <leader>d <Plug>(coc-definition)
-nmap <leader>y <Plug>(coc-type-definition)
-nmap <leader>i <Plug>(coc-implementation)
-nmap <leader>r <Plug>(coc-references)
+nmap <silent> <leader>y <Plug>(coc-type-definition)
+nmap <silent> <leader>r <Plug>(coc-references)
+nmap <silent> <leader>d :call CocAction('jumpDefinition', 'tabe')<CR>
+nmap <silent> <leader>i :call CocAction('jumpImplementation', 'tabe')<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM AUTOCMDS
