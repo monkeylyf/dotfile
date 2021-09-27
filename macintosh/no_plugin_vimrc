@@ -30,6 +30,8 @@ Plugin 'neoclide/coc.nvim'
 Plugin 'morhetz/gruvbox'
 " Tab bar
 Plugin 'mkitt/tabline.vim'
+" Automatic closing of quotes/parenthesis/brackets
+Plugin 'raimondi/delimitmate'
 
 call vundle#end()  " required
 """""""""""""""""""""""
