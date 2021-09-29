@@ -1,6 +1,6 @@
 # Dev Environment Setup for MacOS
 ## List of Devtools
-- iTerm2 or Kitty
+- Kitty
 - vim
-- vifm
 - zsh(by default)
+- tmux

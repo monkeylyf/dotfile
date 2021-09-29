@@ -202,3 +202,32 @@ augroup vimrcEx
   autocmd FileType ruby,haml,eruby,yaml,html,javascript,typescript,java,scala set ai sw=2 sts=2 et
   autocmd FileType python set ai sw=4 sts=4 et
 augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RUN CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! SaveAndRunCurrentFile()
+    " Save current file before run.
+    exec ':w'
+    let current_filetype = &filetype
+    if (current_filetype == 'go')
+        exec ':!go run %'
+    elseif (current_filetype == 'python')
+        exec ':!python3 %'
+    elseif (current_filetype == 'java')
+        exec ':!javac % && java %:r'
+    elseif (current_filetype == 'rust')
+        "let dir = fnamemodify('.', ':p')
+        "let project = split(dir, '/')[-1]
+        "echo 'Cargo Building project [' . project ']...'
+        " The following cargo build command is customized for monkeos project.
+        "exec ':!cargo rustc -- -Z pre-link-arg=-lSystem && ./target/debug/' . project
+        exec ':!rustc % && RUST_BACKTRACE=1 ./%:r && rm ./%:r'
+    elseif (current_filetype == 'cpp')
+        exec ':!g++ % -o ./%:r && ./%:r'
+    else
+        echo 'file type ' . current_filetype . ' not supported'
+    endif
+    "autocmd BufNewFile,BufRead go exec ':!go run %<cr>'
+endfunction
+map <silent> <leader>rr :call SaveAndRunCurrentFile()<cr>
