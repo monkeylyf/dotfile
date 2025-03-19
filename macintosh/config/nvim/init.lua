@@ -26,6 +26,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Load plugins and local modules.
 require("options")
+require("autocmds")
 require("lazy").setup("plugins")
 
 -- Schedule require `mappings` to be invoded soon by the main event-loop to avoid textlock.

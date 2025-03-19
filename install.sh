@@ -12,6 +12,7 @@ for i in "$@"; do
     case $i in
         cygwin)
             DEV_ENV="cygwin"
+            echo `Setting dev env to $DEV_ENV`
             ;;
         mac|macintosh)
             DEV_ENV="macintosh"
@@ -51,6 +52,11 @@ link_dotfiles () {
     done
 }
 
+install_vundle () {
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+}
+
+
 install_dotfiles () {
     if [ -z "$DEV_ENV" ]; then
         echo "Unknown environment..."
@@ -58,6 +64,7 @@ install_dotfiles () {
         exit 1
     else
         link_dotfiles
+        install_vundle
         exit 0
     fi
 }
@@ -71,5 +78,5 @@ install_config () {
     fi
 }
 
-#install_dotfiles
-install_config
+install_dotfiles
+#install_config

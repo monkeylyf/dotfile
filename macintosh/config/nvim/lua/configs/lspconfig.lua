@@ -80,6 +80,18 @@ M.defaults = function()
       },
     },
   }
+
+  require("lspconfig").golps.setup {
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+        gofumpt = true,
+      },
+    },
+  }
 end
 
 return M
