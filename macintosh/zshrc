@@ -1,3 +1,8 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("/Users/bytedance/.zsh/completions" $fpath)
+# OPENSPEC:END
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -74,11 +79,17 @@
 #source $ZSH/oh-my-zsh.sh
 
 # Git completion.
-autoload -U compinit && compinit
+autoload -U compinit && compinit -C
 
 # Load version control information
 autoload -Uz vcs_info
-precmd() { vcs_info }
+precmd() {
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    vcs_info
+  else
+    vcs_info_msg_0_=''
+  fi
+}
 # Format the vcs_info_msg_0_ variable
 zstyle ':vcs_info:git:*' formats '(%b)'
 # Set up the prompt (with git branch name)
@@ -90,7 +101,7 @@ PROMPT='yifeng@mac | %2~ %F{red}${vcs_info_msg_0_}%f$ '
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -108,55 +119,22 @@ PROMPT='yifeng@mac | %2~ %F{red}${vcs_info_msg_0_}%f$ '
 
 # Set up prompt.
 WORKSPACE="${HOME}/workspace"
-alias tmux="tmux att || tmux -2"
 alias work="cd $WORKSPACE"
-alias devbox="ssh liuyifeng.murphy@10.248.155.240"
+alias n="cd $WORKSPACE/naas"
+alias config="cd $WORKSPACE/naas/config"
+alias user="cd $WORKSPACE/naas/user"
+alias app="cd $WORKSPACE/naas/application"
+alias m="cd $WORKSPACE/knight"
 alias lock="pmset sleepnow"
-# Replace ls with exa, which requires `brew install exa`.
-if command -v exa &> /dev/null; then
-    alias ls="exa -la";
-fi
 
-# If kitty is installed as terminal, pass in terminfo with ssh.
-if command -v kitty &> /dev/null; then
-    alias ssh="kitty +kitten ssh";
-fi
+# Openroute var for claude code.
+export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
+export ANTHROPIC_AUTH_TOKEN="$OPENROUTER_API_KEY"
+export ANTHROPIC_API_KEY="" # Important: Must be explicitly empty
 
-# Export vim runtime path.
-if [ -x '/usr/local/vim/bin/vim' ]; then
-    alias vim='/usr/local/vim/bin/vim'
-fi
-
-# Python helper
-pyclean () {
-    directory=$1
-    find $directory -name "*.pyc" -exec rm -f {} \;
-}
-
-# Java helper
-jrun () {
-    if [ "$#" == 1 ]; then
-    	filename=$1
-    	name=`echo ${filename} | sed 's/.\{5\}$//'`
-    	myecho 'Compling '${filename}
-    	javac ${filename} && java $name
-    else
-        echo 'This command takes one args' && return
-    fi
-}
-
-jclean () {
-    directory=$1
-    find $directory -name "*.class" -exec rm -f {} \;
-}
-
-# Fire up tmux as dev windows.
-dev () {
-    if type tmux >/dev/null 2>&1; then
-        tmux att || tmux \
-            new  -s dev -n vim \; \
-            splitw -h -p 40 -t 1 \; \
-            splitw -v -p 50 -t 2 \; \
-            selectp -t 1
-    fi
-}
+devbox_ip="10.37.76.4"
+alias devbox="ssh liuyifeng.murphy@$devbox_ip"
+alias ki="kinit liuyifeng.murphy@BYTEDANCE.COM"
+export PATH="/opt/homebrew/opt/go@1.24/bin:$PATH"
+# Register for Codex metrics.
+alias codexd="NPM_CONFIG_REGISTRY=http://bnpm.byted.org npx -y @byted/codex-tracking-daemon > /dev/null 2>&1 & tail -f /tmp/codex-tracking.log| grep -i report"

@@ -1,128 +1,54 @@
 " This is Yifeng's .vimrc file
+" Last updated @ 2026/01/22
 
 """""""""""""""""""""""
-" Bundle plugin session.
+" Plug plugin session.
 """""""""""""""""""""""
 set nocompatible
 filetype off
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+" https://vi.stackexchange.com/questions/25086/vim-hangs-when-i-open-a-typescript-file
+" Fix the issue that .tsx file cannot be open via Vim.
+set re=2
+set termencoding=utf-8
+set encoding=utf8
+set fileencodings=utf8,ucs-bom,gbk,cp936,gb2312,gb18030
 
-" set the runtime path to include Vundle and initialize.
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-call vundle#begin()
+" set the runtime path to include vim-plug and initialize.
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Color schema related
+"""""""""""""""""""""""
+Plug 'altercation/vim-colors-solarized'
+Plug 'itchyny/lightline.vim'
+Plug 'morhetz/gruvbox'
+"""""""""""""""""""""""
 
-" Plugins
+" Navigation related
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'vifm/vifm.vim'
+Plug 'terryma/vim-multiple-cursors'
+" Plug 'taglist.vim'
 """""""""""""""""""""""
-" Plugin 'airblade/vim-gitgutter'
-" Update time to generate a git diff.
-" set updatetime=100
-" let g:gitgutter_override_sign_column_highlight = 0
-" Max signs.
-" let g:gitgutter_max_signs = 500
+
+" Search related.
 """""""""""""""""""""""
-Plugin 'altercation/vim-colors-solarized'
+" Plug 'junegunn/fzf'
 """""""""""""""""""""""
-Plugin 'christoomey/vim-tmux-navigator'
+
+" Snippets related
 """""""""""""""""""""""
-Plugin 'vifm/vifm.vim'
+Plug 'tpope/vim-surround'
 """""""""""""""""""""""
-" Plugin 'python.vim'
+
+" Language server protocol.
 """""""""""""""""""""""
-" Plugin 'vim-scripts/nginx.vim'
-"""""""""""""""""""""""
-" Plugin 'raimondi/delimitmate'
-"""""""""""""""""""""""
-" Plugin 'rust-lang/rust.vim'
-"""""""""""""""""""""""
-" Plugin 'leafgarland/typescript-vim'
-" let g:typescript_indent_disable = 1
-" let g:typescript_compiler_binary = 'tsc'
-" let g:typescript_compiler_options = ''
-"""""""""""""""""""""""
-Plugin 'HerringtonDarkholme/yats.vim'
-"""""""""""""""""""""""
-" Plugin 'sirver/ultisnips'
-"""""""""""""""""""""""
-" Plugin 'taglist.vim'
-"""""""""""""""""""""""
-Plugin 'terryma/vim-multiple-cursors'
-"""""""""""""""""""""""
-Plugin 'tpope/vim-fugitive'
-"""""""""""""""""""""""
-Plugin 'tpope/vim-surround'
-"""""""""""""""""""""""
-" Plugin 'ap/vim-css-color'
-"""""""""""""""""""""""
-" Plugin 'w0rp/ale'
-"""""""""""""""""""""""
-Plugin 'wincent/command-t'
-let g:CommandTWildIgnore=&wildignore . ",*.pyc"
-"""""""""""""""""""""""
-Plugin 'itchyny/lightline.vim'
-"""""""""""""""""""""""
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
-" let g:airline_theme='luna'
-" let g:airline_powerline_fonts = 1
-" function! AirlineInit()
-"     let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
-" endfunction
-" autocmd VimEnter * call AirlineInit()
-"""""""""""""""""""""""
-" Plugin 'scrooloose/syntastic'
-" let g:syntastic_check_on_open=1
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-"
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-"""""""""""""""""""""""
-" Plugin 'scrooloose/nerdtree'
-" Fireup nerdtree when vim with no args
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" Fireup nerdtree no matther there are args or not
-" autocmd vimenter * NERDTree
-" Close vim if the only window left open is a NERDTree
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Ignore file
-" :let g:NERDTreeIgnore=['\~$', '__pycache__']
-"""""""""""""""""""""""
-"Plugin 'scrooloose/nerdcommenter'
-" Add spaces after comment delimiters by default
-" let g:NERDSpaceDelims = 1
-" Plugin 'jiangmiao/auto-pairs'
-" Plugin 'fatih/vim-go'
-"""""""""""""""""""""""
-" React/Javascript syntax highlighting
-" Plugin 'pangloss/vim-javascript'
-"""""""""""""""""""""""
-" Plugin 'mxw/vim-jsx'
-" Turn on syntax highlights
-"let g:go_highlight_functions = 1
-"let g:go_highlight_methods = 1
-"let g:go_highlight_fields = 1
-"let g:go_highlight_types = 1
-"let g:go_highlight_operators = 1
-"let g:go_highlight_build_constraints = 1
-"""""""""""""""""""""""
-" Plugin 'Valloric/YouCompleteMe'
-" let g:ycm_python_binary_path = '/usr/bin/python3'
-" YCM's identifier completer seeds its identifier database with the keywords of
-" the programming language.
-" let g:ycm_seed_identifiers_with_syntax = 1
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'mattn/vim-lsp-settings'
 """""""""""""""""""""""
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 
 filetype plugin indent on    " required
 
@@ -175,6 +101,7 @@ set wildmode=longest,list
 set wildmenu
 " Fix slow O inserts
 set timeout timeoutlen=1000 ttimeoutlen=100
+set updatetime=300
 " Normally, Vim messes with iskeyword when you open a shell file. This can
 " leak out, polluting other file types even after a 'set ft=' change. This
 " variable prevents the iskeyword change so it can't hurt anyone.
@@ -191,9 +118,6 @@ set autoread
 set number relativenumber
 
 set path+=**                    " Searches current directory recursively.
-set wildmenu					" Display all matches when tab complete.
-set incsearch
-set nobackup
 set noswapfile
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -210,8 +134,8 @@ augroup vimrcEx
     \ endif
 
   " language indentation & softtabstops & expandtab
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,typescript,java,scala set ai sw=2 sts=2 et
-  autocmd FileType python set ai sw=4 sts=4 et
+  " autocmd FileType ruby,haml,eruby,yaml,html,javascript,typescript,java,scala set ai sw=2 sts=2 et
+  " autocmd FileType python set ai sw=4 sts=4 et
 
   autocmd! BufRead,BufNewFile *.sass setfiletype sass
 
@@ -239,7 +163,10 @@ syntax enable
 let g:solarized_termcolors=256
 let g:rehash256=1
 set background=dark
-colorscheme solarized
+colorscheme gruvbox
+" Magic that make Kitty schem background consistent with VIM scheme.
+" https://github.com/kovidgoyal/kitty/issues/108#issuecomment-320492663
+let &t_ut=''
 
 """"""""""""""""""
 " Mapping & Leader
@@ -268,6 +195,15 @@ nnoremap <c-h> <c-w>h  " Left panel.
 nnoremap <c-j> <c-w>j  " Down panel.
 nnoremap <c-k> <c-w>k  " Up panel.
 nnoremap <c-l> <c-w>l  " Right panel.
+" Tab operation shortcut.
+nnoremap <Leader>te :tabedit<Space>
+nnoremap <Leader>th :tabfirst<CR>
+nnoremap <Leader>tj :tabnext<CR>
+nnoremap <Leader>tk :tabprev<CR>
+nnoremap <Leader>tl :tablast<CR>
+nnoremap <Leader>tn :tabnext<Space>
+nnoremap <Leader>tm :tabm<Space>
+nnoremap <Leader>td :tabclose<CR>
 " Move around tabs
 nnoremap <Tab> gt
 nnoremap <leader>1 1gt
@@ -291,25 +227,41 @@ noremap <Right> :echo noarrowkeys<CR>
 " Insert a left rocket with <c-k>
 " inoremap <c-k> <space><-<space>
 " Plugins shortcuts
-" Ycm shortcuts.
-" nnoremap <leader><leader>c :YcmCompleter GoToDeclaration<CR>
-" nnoremap <leader><leader>f :YcmCompleter GoToDefinition<CR>
+
+" lsp-gopls
+" augroup LspGo
+"   au!
+"   autocmd User lsp_setup call lsp#register_server({
+"       \ 'name': 'gopls',
+"       \ 'cmd': {server_info->['gopls']},
+"       \ 'whitelist': ['go'],
+"       \ })
+" augroup END
+
+nnoremap <buffer> <leader><leader>d <plug>(coc-definition)
+noremap  <buffer> <leader><leader>i <plug>(coc-implementation)
+noremap  <buffer> <leader><leader>t <plug>(coc-type-definition)
+noremap  <buffer> <leader><leader>r <plug>(coc-references)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
 " Indent if we're at the beginning of a line. Else, do completion.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! InsertTabWrapper()
+function! InsertTabWrapper() abort
     let col = col('.') - 1
-    echom "debug: " . col
     if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
+        return "\<Tab>"
+    elseif coc#pum#visible()
+        return coc#pum#next(1)
     else
-        return "\<c-p>"
+        return coc#refresh()
     endif
 endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <silent><expr> <Tab> InsertTabWrapper()
 " inoremap <s-tab> <c-n>
+inoremap <silent><expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
