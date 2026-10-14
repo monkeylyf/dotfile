@@ -44,8 +44,6 @@ Plug 'tpope/vim-surround'
 " Language server protocol.
 """""""""""""""""""""""
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
 """""""""""""""""""""""
 " All of your Plugins must be added before the following line
 call plug#end()            " required

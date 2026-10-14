@@ -52,11 +52,6 @@ link_dotfiles () {
     done
 }
 
-install_vundle () {
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-}
-
-
 install_dotfiles () {
     if [ -z "$DEV_ENV" ]; then
         echo "Unknown environment..."
@@ -64,7 +59,6 @@ install_dotfiles () {
         exit 1
     else
         link_dotfiles
-        install_vundle
         exit 0
     fi
 }

@@ -98,6 +98,20 @@ PROMPT='yifeng@mac | %2~ %F{red}${vcs_info_msg_0_}%f$ '
 
 # User configuration
 
+# Keep a substantial persistent command history. These live in .zshrc so they
+# take precedence over the smaller defaults installed by macOS startup files.
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+
+setopt EXTENDED_HISTORY
+setopt SHARE_HISTORY
+setopt APPEND_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -124,17 +138,45 @@ alias n="cd $WORKSPACE/naas"
 alias config="cd $WORKSPACE/naas/config"
 alias user="cd $WORKSPACE/naas/user"
 alias app="cd $WORKSPACE/naas/application"
-alias m="cd $WORKSPACE/knight"
+alias u="cd $WORKSPACE/uatu"
 alias lock="pmset sleepnow"
+
+# Show the complete loaded history when `history` is called without arguments.
+# Preserve zsh's normal argument handling for calls such as `history -100`.
+history() {
+  if (( $# == 0 )); then
+    builtin fc -l -$HISTSIZE
+  else
+    builtin fc -l "$@"
+  fi
+}
+
+# Python.
+alias python="/opt/homebrew/opt/python@3.14/libexec/bin/python"
+alias python3="/opt/homebrew/opt/python@3.14/libexec/bin/python"
+
+# Replace ls with exa, which requires `brew install exa`.
+if command -v exa &> /dev/null; then
+    alias ls="exa -la";
+fi
 
 # Openroute var for claude code.
 export ANTHROPIC_BASE_URL="https://openrouter.ai/api"
 export ANTHROPIC_AUTH_TOKEN="$OPENROUTER_API_KEY"
 export ANTHROPIC_API_KEY="" # Important: Must be explicitly empty
 
+# Devbox.
 devbox_ip="10.37.76.4"
 alias devbox="ssh liuyifeng.murphy@$devbox_ip"
 alias ki="kinit liuyifeng.murphy@BYTEDANCE.COM"
-export PATH="/opt/homebrew/opt/go@1.24/bin:$PATH"
 # Register for Codex metrics.
 alias codexd="NPM_CONFIG_REGISTRY=http://bnpm.byted.org npx -y @byted/codex-tracking-daemon > /dev/null 2>&1 & tail -f /tmp/codex-tracking.log| grep -i report"
+# Export vim runtime path.
+if [ -x '/usr/local/vim/bin/vim' ]; then
+    alias vim='/usr/local/vim/bin/vim'
+fi
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/bytedance/.docker/completions $fpath)
+autoload -Uz compinit
+(( ${+_comps[docker]} )) || compinit
+# End of Docker CLI completions
